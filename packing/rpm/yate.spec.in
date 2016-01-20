@@ -279,6 +279,16 @@ provides moderate compression and good voice quality.
 %files gsm
 %{_libdir}/yate/gsmcodec.yate
 
+%package ippcodecs
+Summary:	g723.1 and g729 codecs based on IPP library for Yate
+Group:		Applications/Communication
+Requires:	%{name} = %{version}-%{release}
+
+%description ippcodecs
+g723.1 and g729 codecs based on IPP library for Yate
+
+%files ippcodecs
+%{_libdir}/yate/ippcodecs.yate
 
 %package speex
 Summary:	Speex audio codec for Yate

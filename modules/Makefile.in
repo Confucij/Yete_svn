@@ -170,6 +170,10 @@ ifneq (@HAVE_ILBCWR@,no)
 PROGS := $(PROGS) ilbcwebrtc.yate
 endif
 
+ifneq (@HAVE_IPPLIB@,no)
+PROGS := $(PROGS) ippcodecs.yate
+endif
+
 ifneq (@HAVE_ISAC@,no)
 PROGS := $(PROGS) isaccodec.yate
 endif
@@ -379,6 +383,11 @@ ilbccodec.yate: LOCALLIBS = -L../libs/ilbc -lilbc
 ilbcwebrtc.yate: ../libs/miniwebrtc/libminiwebrtc.a
 ilbcwebrtc.yate: LOCALFLAGS = @ILBCWR_INC@ -I@top_srcdir@/libs/miniwebrtc/audio/common/processing -I@top_srcdir@/libs/miniwebrtc
 ilbcwebrtc.yate: LOCALLIBS = -L../libs/miniwebrtc -lminiwebrtc
+
+ippcodecs.yate: EXTERNFLAGS += -D_USC_G729 -D_USC_G723
+ippcodecs.yate: EXTERNFLAGS += -I@IPP_ROOT@/ipp/include -I@IPP_ROOT@/ipp-speech-codecs/sources/speech-codecs/core/usc/include/
+ippcodecs.yate: EXTERNLIBS += -L@IPP_ROOT@/ipp-speech-codecs/lib/ -L@IPP_ROOT@/ipp/lib/intel64/ -L@IPP_ROOT@/composerxe/lib/intel64/
+ippcodecs.yate: EXTERNLIBS += -lspeech_g729i -lspeech_g723.1  -lspeech_vad -lspeech_common -l:libippsc.a -l:libipps.a -l:libippcore.a -l:libirc.a -l:libsvml.a
 
 isaccodec.yate: ../libs/miniwebrtc/libminiwebrtc.a
 isaccodec.yate: LOCALFLAGS = @ISAC_INC@ -I@top_srcdir@/libs/miniwebrtc/audio/common/processing -I@top_srcdir@/libs/miniwebrtc

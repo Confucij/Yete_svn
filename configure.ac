@@ -6,7 +6,7 @@ AC_PREREQ(2.52)
 if echo "$ac_confdir/$ac_pwd" | grep -q '[[[:space:]\\\$\"'\'']]'; then
     AC_ERROR([Unsupported character(s) in source or current directory name])
 fi
-
+#'
 PACKAGE_RELEASE="1"
 PACKAGE_STATUS="devel"
 PACKAGE_REVISION=`svn info 2>/dev/null | sed -n 's,^Revision: *,,p'`
@@ -989,6 +989,36 @@ AC_SUBST(HAVE_GSM)
 AC_SUBST(GSM_INC)
 AC_SUBST(GSM_LIB)
 
+HAVE_IPPLIB=no
+IPP_ROOT=""
+AC_ARG_WITH(libipp,AC_HELP_STRING([--with-libipp],[use IPP library for g723.1 and g729 codecs (default /opt/intel)]),[ac_cv_use_libipp=$withval],[ac_cv_use_libipp="/opt/intel"])
+if [[ "x$ac_cv_use_libipp" != "xno" ]]; then
+    AC_MSG_CHECKING([for IPP libs in $ac_cv_use_libipp/ipp/lib/intel64])
+    if [[ -f "$ac_cv_use_libipp/ipp/lib/intel64/libippcore.a" ]]
+    then
+        AC_MSG_RESULT(yes)
+        AC_MSG_CHECKING([for Intel composerxe libs in $ac_cv_use_libipp/composerxe/lib/intel64])
+        if [[ -f "$ac_cv_use_libipp/composerxe/lib/intel64/libsvml.a" ]]
+        then
+            AC_MSG_RESULT(yes)
+            AC_MSG_CHECKING([for Intel USC libs and sources in $ac_cv_use_libipp/ipp-speech-codecs])
+            if [[[ -f "$ac_cv_use_libipp/ipp-speech-codecs/lib/libspeech_common.a" ]] && [[ -f "$ac_cv_use_libipp/ipp-speech-codecs/sources/speech-codecs/core/usc/include/usc.h" ]]]
+            then
+                AC_MSG_RESULT(yes)
+                HAVE_IPPLIB=yes
+                IPP_ROOT="$ac_cv_use_libipp"
+            else 
+                AC_MSG_RESULT(no)
+            fi
+        else
+            AC_MSG_RESULT(no)
+        fi
+    else
+        AC_MSG_RESULT(no)
+    fi
+fi
+AC_SUBST(HAVE_IPPLIB)
+AC_SUBST(IPP_ROOT)
 
 HAVE_ILBC=no
 ILBC_INC=""
