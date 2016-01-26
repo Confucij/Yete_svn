@@ -19,7 +19,7 @@ INCLUDES := -I. -I@srcdir@
 CFLAGS := @CFLAGS@ @MODULE_CPPFLAGS@ @INLINE_FLAGS@
 LDFLAGS:= @LDFLAGS@
 LDCONFIG:=true
-RPMOPT :=
+RPMOPT := --define 'systemd 1'  --define 'nopstn 1' --define 'nosctp 1'  --define 'nogui 1' --define 'nousb 1'
 
 MKDEPS := ./config.status
 PROGS:= yate
