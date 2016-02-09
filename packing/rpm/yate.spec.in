@@ -26,6 +26,17 @@
 %{?notdm:%define no_tdmapi 1}
 
 %{!?debuginfo:%define debuginfo %{nil}}
+%{!?path:%define path /opt/yate)}
+
+%define __libdir        %{prefix}/lib64
+%define __bindir        %{prefix}/bin
+%define __datadir       %{prefix}/share
+%define __defaultdocdir %{__datadir}/doc
+%define __sysconfdir    %{prefix}/etc
+%define __mandir        %{prefix}/share/man
+%define __includedir    %{prefix}/include
+%define __localstatedir %{prefix}/var
+
 %if "%{debuginfo}"
 %define stripped debug
 %else
@@ -75,7 +86,6 @@ URL:		http://yate.null.ro/
 BuildRequires:	gcc-c++
 # Distro maintainers please add other BuildRequires below this line
 
-%define prefix  /usr
 
 
 %description
@@ -84,166 +94,167 @@ for small to large scale projects.
 
 %files
 %defattr(-, root, root)
-%dir %{_defaultdocdir}/yate-%{version}
-%doc %{_defaultdocdir}/yate-%{version}/README
-%doc %{_defaultdocdir}/yate-%{version}/COPYING
-%doc %{_defaultdocdir}/yate-%{version}/ChangeLog
-%doc %{_defaultdocdir}/yate-%{version}/iLBC-LICENSE.txt
-%doc %{_defaultdocdir}/yate-%{version}/WebRTC-LICENSE
-%doc %{_defaultdocdir}/yate-%{version}/WebRTC-LICENSE_THIRD_PARTY
-%doc %{_defaultdocdir}/yate-%{version}/WebRTC-PATENTS
-%{_libdir}/libyate.so.*
-%{_libdir}/libyatescript.so.*
-%{_libdir}/libyatejabber.so.*
-%{_libdir}/libyatesig.so.*
-%{_libdir}/libyateasn.so.*
-%{_libdir}/libyateradio.so.*
-%{_libdir}/libyatemgcp.so.*
-%{_bindir}/yate
-%{_mandir}/*/yate.*
+%dir %{__defaultdocdir}/yate-%{version}
+%doc %{__defaultdocdir}/yate-%{version}/README
+%doc %{__defaultdocdir}/yate-%{version}/COPYING
+%doc %{__defaultdocdir}/yate-%{version}/ChangeLog
+%doc %{__defaultdocdir}/yate-%{version}/iLBC-LICENSE.txt
+%doc %{__defaultdocdir}/yate-%{version}/WebRTC-LICENSE
+%doc %{__defaultdocdir}/yate-%{version}/WebRTC-LICENSE_THIRD_PARTY
+%doc %{__defaultdocdir}/yate-%{version}/WebRTC-PATENTS
+%{__libdir}/libyate.so.*
+%{__libdir}/libyatescript.so.*
+%{__libdir}/libyatejabber.so.*
+%{__libdir}/libyatesig.so.*
+%{__libdir}/libyateasn.so.*
+%{__libdir}/libyateradio.so.*
+%{__libdir}/libyatemgcp.so.*
+%{__bindir}/yate
+%{__mandir}/*/yate.*
 %if "%{systemd}" != "0"
 %{_unitdir}/yate.service
 %else
 %{_initrddir}/yate
 %endif
-%dir %{_datadir}/yate/data
-%{_datadir}/yate/data/*MIB.txt
-%{_datadir}/yate/data/snmp_mib.conf
-%dir %{_libdir}/yate
-%{_libdir}/yate/cdrbuild.yate
-%{_libdir}/yate/cdrcombine.yate
-%{_libdir}/yate/cdrfile.yate
-%{_libdir}/yate/regexroute.yate
-%{_libdir}/yate/javascript.yate
-%{_libdir}/yate/server/regfile.yate
-%{_libdir}/yate/server/accfile.yate
-%{_libdir}/yate/server/register.yate
-%{_libdir}/yate/tonegen.yate
-%{_libdir}/yate/tonedetect.yate
-%{_libdir}/yate/wavefile.yate
-%{_libdir}/yate/conference.yate
-%{_libdir}/yate/moh.yate
-%{_libdir}/yate/callgen.yate
-%{_libdir}/yate/analyzer.yate
-%{_libdir}/yate/rmanager.yate
-%{_libdir}/yate/msgsniff.yate
-%{_libdir}/yate/mux.yate
-%{_libdir}/yate/pbx.yate
-%{_libdir}/yate/dumbchan.yate
-%{_libdir}/yate/callfork.yate
-%{_libdir}/yate/extmodule.yate
-%{_libdir}/yate/fileinfo.yate
-%{_libdir}/yate/filetransfer.yate
-%{_libdir}/yate/ysipchan.yate
-%{_libdir}/yate/yrtpchan.yate
-%{_libdir}/yate/ystunchan.yate
-%{_libdir}/yate/ysockschan.yate
-%{_libdir}/yate/yiaxchan.yate
-%{_libdir}/yate/yjinglechan.yate
-%{_libdir}/yate/enumroute.yate
-%{_libdir}/yate/ilbccodec.yate
-%{_libdir}/yate/ilbcwebrtc.yate
-%{_libdir}/yate/isaccodec.yate
-%{_libdir}/yate/gvoice.yate
-%{_libdir}/yate/server/dbwave.yate
-%{_libdir}/yate/server/dbpbx.yate
-%{_libdir}/yate/server/pbxassist.yate
-%{_libdir}/yate/server/park.yate
-%{_libdir}/yate/server/queues.yate
-%{_libdir}/yate/server/lateroute.yate
-%{_libdir}/yate/server/callcounters.yate
-%{_libdir}/yate/server/yradius.yate
-%{_libdir}/yate/server/sipfeatures.yate
-%{_libdir}/yate/server/queuesnotify.yate
-%{_libdir}/yate/server/heartbeat.yate
-%{_libdir}/yate/server/clustering.yate
-%{_libdir}/yate/server/mgcpca.yate
-%{_libdir}/yate/server/mgcpgw.yate
-%{_libdir}/yate/server/mrcpspeech.yate
-%{_libdir}/yate/server/ysigchan.yate
-%{_libdir}/yate/server/ciscosm.yate
-%{_libdir}/yate/server/sigtransport.yate
-%{_libdir}/yate/server/analog.yate
-%{_libdir}/yate/server/analogdetect.yate
-%{_libdir}/yate/server/users.yate
-%{_libdir}/yate/server/presence.yate
-%{_libdir}/yate/server/subscription.yate
-%{_libdir}/yate/server/cpuload.yate
-%{_libdir}/yate/server/ccongestion.yate
-%{_libdir}/yate/server/monitoring.yate
-%{_libdir}/yate/server/ysnmpagent.yate
-%{_libdir}/yate/server/cache.yate
-%{_libdir}/yate/server/eventlogs.yate
-%{_libdir}/yate/client/osschan.yate
-%{_libdir}/yate/client/jabberclient.yate
-%{_libdir}/yate/jabber/jabberserver.yate
-%{_libdir}/yate/jabber/jbfeatures.yate
-%{_libdir}/yate/sig/isupmangler.yate
-%{_libdir}/yate/sig/ss7_lnp_ansi.yate
-%{_libdir}/yate/sig/camel_map.yate
-%{_libdir}/yate/sip/sip_cnam_lnp.yate
-%{_libdir}/yate/radio/dummyradio.yate
-%dir %{_sysconfdir}/yate
-%config(noreplace) %{_sysconfdir}/yate/accfile.conf
-%config(noreplace) %{_sysconfdir}/yate/cdrbuild.conf
-%config(noreplace) %{_sysconfdir}/yate/cdrfile.conf
-%config(noreplace) %{_sysconfdir}/yate/callcounters.conf
-%config(noreplace) %{_sysconfdir}/yate/dbpbx.conf
-%config(noreplace) %{_sysconfdir}/yate/dsoundchan.conf
-%config(noreplace) %{_sysconfdir}/yate/enumroute.conf
-%config(noreplace) %{_sysconfdir}/yate/sipfeatures.conf
-%config(noreplace) %{_sysconfdir}/yate/callfork.conf
-%config(noreplace) %{_sysconfdir}/yate/extmodule.conf
-%config(noreplace) %{_sysconfdir}/yate/fileinfo.conf
-%config(noreplace) %{_sysconfdir}/yate/filetransfer.conf
-%config(noreplace) %{_sysconfdir}/yate/moh.conf
-%config(noreplace) %{_sysconfdir}/yate/mux.conf
-%config(noreplace) %{_sysconfdir}/yate/pbxassist.conf
-%config(noreplace) %{_sysconfdir}/yate/queues.conf
-%config(noreplace) %{_sysconfdir}/yate/queuesnotify.conf
-%config(noreplace) %{_sysconfdir}/yate/lateroute.conf
-%config(noreplace) %{_sysconfdir}/yate/regexroute.conf
-%config(noreplace) %{_sysconfdir}/yate/javascript.conf
-%config(noreplace) %{_sysconfdir}/yate/regfile.conf
-%config(noreplace) %{_sysconfdir}/yate/register.conf
-%config(noreplace) %{_sysconfdir}/yate/tonegen.conf
-%config(noreplace) %{_sysconfdir}/yate/rmanager.conf
-%config(noreplace) %{_sysconfdir}/yate/yate.conf
-%config(noreplace) %{_sysconfdir}/yate/yiaxchan.conf
-%config(noreplace) %{_sysconfdir}/yate/yradius.conf
-%config(noreplace) %{_sysconfdir}/yate/yrtpchan.conf
-%config(noreplace) %{_sysconfdir}/yate/ysockschan.conf
-%config(noreplace) %{_sysconfdir}/yate/ystunchan.conf
-%config(noreplace) %{_sysconfdir}/yate/ysipchan.conf
-%config(noreplace) %{_sysconfdir}/yate/yjinglechan.conf
-%config(noreplace) %{_sysconfdir}/yate/gvoice.conf
-%config(noreplace) %{_sysconfdir}/yate/heartbeat.conf
-%config(noreplace) %{_sysconfdir}/yate/clustering.conf
-%config(noreplace) %{_sysconfdir}/yate/mgcpca.conf
-%config(noreplace) %{_sysconfdir}/yate/mgcpgw.conf
-%config(noreplace) %{_sysconfdir}/yate/analog.conf
-%config(noreplace) %{_sysconfdir}/yate/ysigchan.conf
-%config(noreplace) %{_sysconfdir}/yate/ciscosm.conf
-%config(noreplace) %{_sysconfdir}/yate/sigtransport.conf
-%config(noreplace) %{_sysconfdir}/yate/cpuload.conf
-%config(noreplace) %{_sysconfdir}/yate/ccongestion.conf
-%config(noreplace) %{_sysconfdir}/yate/monitoring.conf
-%config(noreplace) %{_sysconfdir}/yate/ysnmpagent.conf
-%config(noreplace) %{_sysconfdir}/yate/cache.conf
-%config(noreplace) %{_sysconfdir}/yate/eventlogs.conf
-%config(noreplace) %{_sysconfdir}/yate/users.conf
-%config(noreplace) %{_sysconfdir}/yate/presence.conf
-%config(noreplace) %{_sysconfdir}/yate/subscription.conf
-%config(noreplace) %{_sysconfdir}/yate/jabberclient.conf
-%config(noreplace) %{_sysconfdir}/yate/jabberserver.conf
-%config(noreplace) %{_sysconfdir}/yate/jbfeatures.conf
-%config(noreplace) %{_sysconfdir}/yate/isupmangler.conf
-%config(noreplace) %{_sysconfdir}/yate/ss7_lnp_ansi.conf
-%config(noreplace) %{_sysconfdir}/yate/camel_map.conf
-%config(noreplace) %{_sysconfdir}/yate/sip_cnam_lnp.conf
-%config(noreplace) %{_sysconfdir}/yate/dummyradio.conf
+%dir %{__datadir}/yate/data
+%{__datadir}/yate/data/*MIB.txt
+%{__datadir}/yate/data/snmp_mib.conf
+%dir %{__libdir}/yate
+%{__libdir}/yate/cdrbuild.yate
+%{__libdir}/yate/cdrcombine.yate
+%{__libdir}/yate/cdrfile.yate
+%{__libdir}/yate/regexroute.yate
+%{__libdir}/yate/javascript.yate
+%{__libdir}/yate/server/regfile.yate
+%{__libdir}/yate/server/accfile.yate
+%{__libdir}/yate/server/register.yate
+%{__libdir}/yate/tonegen.yate
+%{__libdir}/yate/tonedetect.yate
+%{__libdir}/yate/wavefile.yate
+%{__libdir}/yate/conference.yate
+%{__libdir}/yate/moh.yate
+%{__libdir}/yate/callgen.yate
+%{__libdir}/yate/analyzer.yate
+%{__libdir}/yate/rmanager.yate
+%{__libdir}/yate/msgsniff.yate
+%{__libdir}/yate/mux.yate
+%{__libdir}/yate/pbx.yate
+%{__libdir}/yate/dumbchan.yate
+%{__libdir}/yate/callfork.yate
+%{__libdir}/yate/extmodule.yate
+%{__libdir}/yate/fileinfo.yate
+%{__libdir}/yate/filetransfer.yate
+%{__libdir}/yate/ysipchan.yate
+%{__libdir}/yate/yrtpchan.yate
+%{__libdir}/yate/ystunchan.yate
+%{__libdir}/yate/ysockschan.yate
+%{__libdir}/yate/yiaxchan.yate
+%{__libdir}/yate/yjinglechan.yate
+%{__libdir}/yate/enumroute.yate
+%{__libdir}/yate/ilbccodec.yate
+%{__libdir}/yate/ilbcwebrtc.yate
+%{__libdir}/yate/isaccodec.yate
+%{__libdir}/yate/gvoice.yate
+%{__libdir}/yate/server/dbwave.yate
+%{__libdir}/yate/server/dbpbx.yate
+%{__libdir}/yate/server/pbxassist.yate
+%{__libdir}/yate/server/park.yate
+%{__libdir}/yate/server/queues.yate
+%{__libdir}/yate/server/lateroute.yate
+%{__libdir}/yate/server/callcounters.yate
+%{__libdir}/yate/server/yradius.yate
+%{__libdir}/yate/server/sipfeatures.yate
+%{__libdir}/yate/server/queuesnotify.yate
+%{__libdir}/yate/server/heartbeat.yate
+%{__libdir}/yate/server/clustering.yate
+%{__libdir}/yate/server/mgcpca.yate
+%{__libdir}/yate/server/mgcpgw.yate
+%{__libdir}/yate/server/mrcpspeech.yate
+%{__libdir}/yate/server/ysigchan.yate
+%{__libdir}/yate/server/ciscosm.yate
+%{__libdir}/yate/server/sigtransport.yate
+%{__libdir}/yate/server/analog.yate
+%{__libdir}/yate/server/analogdetect.yate
+%{__libdir}/yate/server/users.yate
+%{__libdir}/yate/server/presence.yate
+%{__libdir}/yate/server/subscription.yate
+%{__libdir}/yate/server/cpuload.yate
+%{__libdir}/yate/server/ccongestion.yate
+%{__libdir}/yate/server/monitoring.yate
+%{__libdir}/yate/server/ysnmpagent.yate
+%{__libdir}/yate/server/cache.yate
+%{__libdir}/yate/server/eventlogs.yate
+%{__libdir}/yate/client/osschan.yate
+%{__libdir}/yate/client/jabberclient.yate
+%{__libdir}/yate/jabber/jabberserver.yate
+%{__libdir}/yate/jabber/jbfeatures.yate
+%{__libdir}/yate/sig/isupmangler.yate
+%{__libdir}/yate/sig/ss7_lnp_ansi.yate
+%{__libdir}/yate/sig/camel_map.yate
+%{__libdir}/yate/sip/sip_cnam_lnp.yate
+%{__libdir}/yate/radio/dummyradio.yate
+%dir %{__sysconfdir}/yate
+%config(noreplace) %{__sysconfdir}/yate/accfile.conf
+%config(noreplace) %{__sysconfdir}/yate/cdrbuild.conf
+%config(noreplace) %{__sysconfdir}/yate/cdrfile.conf
+%config(noreplace) %{__sysconfdir}/yate/callcounters.conf
+%config(noreplace) %{__sysconfdir}/yate/dbpbx.conf
+%config(noreplace) %{__sysconfdir}/yate/dsoundchan.conf
+%config(noreplace) %{__sysconfdir}/yate/enumroute.conf
+%config(noreplace) %{__sysconfdir}/yate/sipfeatures.conf
+%config(noreplace) %{__sysconfdir}/yate/callfork.conf
+%config(noreplace) %{__sysconfdir}/yate/extmodule.conf
+%config(noreplace) %{__sysconfdir}/yate/fileinfo.conf
+%config(noreplace) %{__sysconfdir}/yate/filetransfer.conf
+%config(noreplace) %{__sysconfdir}/yate/moh.conf
+%config(noreplace) %{__sysconfdir}/yate/mux.conf
+%config(noreplace) %{__sysconfdir}/yate/pbxassist.conf
+%config(noreplace) %{__sysconfdir}/yate/queues.conf
+%config(noreplace) %{__sysconfdir}/yate/queuesnotify.conf
+%config(noreplace) %{__sysconfdir}/yate/lateroute.conf
+%config(noreplace) %{__sysconfdir}/yate/regexroute.conf
+%config(noreplace) %{__sysconfdir}/yate/javascript.conf
+%config(noreplace) %{__sysconfdir}/yate/regfile.conf
+%config(noreplace) %{__sysconfdir}/yate/register.conf
+%config(noreplace) %{__sysconfdir}/yate/tonegen.conf
+%config(noreplace) %{__sysconfdir}/yate/rmanager.conf
+%config(noreplace) %{__sysconfdir}/yate/yate.conf
+%config(noreplace) %{__sysconfdir}/yate/yiaxchan.conf
+%config(noreplace) %{__sysconfdir}/yate/yradius.conf
+%config(noreplace) %{__sysconfdir}/yate/yrtpchan.conf
+%config(noreplace) %{__sysconfdir}/yate/ysockschan.conf
+%config(noreplace) %{__sysconfdir}/yate/ystunchan.conf
+%config(noreplace) %{__sysconfdir}/yate/ysipchan.conf
+%config(noreplace) %{__sysconfdir}/yate/yjinglechan.conf
+%config(noreplace) %{__sysconfdir}/yate/gvoice.conf
+%config(noreplace) %{__sysconfdir}/yate/heartbeat.conf
+%config(noreplace) %{__sysconfdir}/yate/clustering.conf
+%config(noreplace) %{__sysconfdir}/yate/mgcpca.conf
+%config(noreplace) %{__sysconfdir}/yate/mgcpgw.conf
+%config(noreplace) %{__sysconfdir}/yate/analog.conf
+%config(noreplace) %{__sysconfdir}/yate/ysigchan.conf
+%config(noreplace) %{__sysconfdir}/yate/ciscosm.conf
+%config(noreplace) %{__sysconfdir}/yate/sigtransport.conf
+%config(noreplace) %{__sysconfdir}/yate/cpuload.conf
+%config(noreplace) %{__sysconfdir}/yate/ccongestion.conf
+%config(noreplace) %{__sysconfdir}/yate/monitoring.conf
+%config(noreplace) %{__sysconfdir}/yate/ysnmpagent.conf
+%config(noreplace) %{__sysconfdir}/yate/cache.conf
+%config(noreplace) %{__sysconfdir}/yate/eventlogs.conf
+%config(noreplace) %{__sysconfdir}/yate/users.conf
+%config(noreplace) %{__sysconfdir}/yate/presence.conf
+%config(noreplace) %{__sysconfdir}/yate/subscription.conf
+%config(noreplace) %{__sysconfdir}/yate/jabberclient.conf
+%config(noreplace) %{__sysconfdir}/yate/jabberserver.conf
+%config(noreplace) %{__sysconfdir}/yate/jbfeatures.conf
+%config(noreplace) %{__sysconfdir}/yate/isupmangler.conf
+%config(noreplace) %{__sysconfdir}/yate/ss7_lnp_ansi.conf
+%config(noreplace) %{__sysconfdir}/yate/camel_map.conf
+%config(noreplace) %{__sysconfdir}/yate/sip_cnam_lnp.conf
+%config(noreplace) %{__sysconfdir}/yate/dummyradio.conf
 
 %config %{_sysconfdir}/logrotate.d/yate
+%config %{_sysconfdir}/ld.so.conf.d/*
 
 %post
 ldconfig
@@ -264,7 +275,7 @@ Advanced Linux Sound Architecture audio driver for Yate. This is the recommended
 audio interface for using the client under Linux.
 
 %files alsa
-%{_libdir}/yate/client/alsachan.yate
+%{__libdir}/yate/client/alsachan.yate
 
 
 %package gsm
@@ -277,7 +288,7 @@ European GSM 06.10 audio codec for Yate. This is a low CPU usage codec that
 provides moderate compression and good voice quality.
 
 %files gsm
-%{_libdir}/yate/gsmcodec.yate
+%{__libdir}/yate/gsmcodec.yate
 
 %package ippcodecs
 Summary:	g723.1 and g729 codecs based on IPP library for Yate
@@ -288,7 +299,7 @@ Requires:	%{name} = %{version}-%{release}
 g723.1 and g729 codecs based on IPP library for Yate
 
 %files ippcodecs
-%{_libdir}/yate/ippcodecs.yate
+%{__libdir}/yate/ippcodecs.yate
 
 %package speex
 Summary:	Speex audio codec for Yate
@@ -300,7 +311,7 @@ Speex audio codec for Yate. Speex is based on CELP  and is designed to
 compress voice at bitrates ranging from 2 to 44 kbps.
 
 %files speex
-%{_libdir}/yate/speexcodec.yate
+%{__libdir}/yate/speexcodec.yate
 
 
 %if "%{no_h323}" != "1"
@@ -314,8 +325,8 @@ Requires:	%{name} = %{version}-%{release}
 Yate driver for the ITU-T H.323 VoIP protocol based on the OpenH323 library.
 
 %files h323
-%{_libdir}/yate/h323chan.yate
-%config(noreplace) %{_sysconfdir}/yate/h323chan.conf
+%{__libdir}/yate/h323chan.yate
+%config(noreplace) %{__sysconfdir}/yate/h323chan.conf
 
 %define conf_h323 %{nil}
 %else
@@ -338,20 +349,20 @@ Yate drivers for ISDN PRI cards supported by the Zaptel or Wanpipe kernel
 interfaces.
 
 %files isdn
-%{_libdir}/yate/server/wpcard.yate
-%config(noreplace) %{_sysconfdir}/yate/wpcard.conf
+%{__libdir}/yate/server/wpcard.yate
+%config(noreplace) %{__sysconfdir}/yate/wpcard.conf
 
 %if "%{no_zaptel}" != "1"
-%{_libdir}/yate/server/zapcard.yate
-%config(noreplace) %{_sysconfdir}/yate/zapcard.conf
+%{__libdir}/yate/server/zapcard.yate
+%config(noreplace) %{__sysconfdir}/yate/zapcard.conf
 %define conf_zaptel --enable-zaptel
 %else
 %define conf_zaptel --disable-zaptel
 %endif
 
 %if "%{no_tdmapi}" != "1"
-%{_libdir}/yate/server/tdmcard.yate
-%config(noreplace) %{_sysconfdir}/yate/tdmcard.conf
+%{__libdir}/yate/server/tdmcard.yate
+%config(noreplace) %{__sysconfdir}/yate/tdmcard.conf
 %define conf_tdmapi --enable-tdmcard
 %else
 %define conf_tdmapi --disable-tdmcard
@@ -375,8 +386,8 @@ This package provides SCTP sockets support for Yate based on the Linux Kernel
 implementation. These are needed for standard SIGTRAN interfaces.
 
 %files lksctp
-%{_libdir}/yate/server/lksctp.yate
-%config(noreplace) %{_sysconfdir}/yate/lksctp.conf
+%{__libdir}/yate/server/lksctp.yate
+%config(noreplace) %{__sysconfdir}/yate/lksctp.conf
 
 %define conf_sctp --enable-sctp
 %else
@@ -396,8 +407,8 @@ This package provides SSL/TLS encrypted communication support for Yate as
 well as cryptographic routines used for other purposes.
 
 %files openssl
-%{_libdir}/yate/openssl.yate
-%config(noreplace) %{_sysconfdir}/yate/openssl.conf
+%{__libdir}/yate/openssl.yate
+%config(noreplace) %{__sysconfdir}/yate/openssl.conf
 
 
 %package zlib
@@ -410,8 +421,8 @@ Provides:	%{name}-compression
 This package provides Zlib data compression for Yate.
 
 %files zlib
-%{_libdir}/yate/zlibcompress.yate
-%config(noreplace) %{_sysconfdir}/yate/zlibcompress.conf
+%{__libdir}/yate/zlibcompress.yate
+%config(noreplace) %{__sysconfdir}/yate/zlibcompress.conf
 
 
 %package pgsql
@@ -425,8 +436,8 @@ This package allows Yate to connect to a PostgreSQL database server. All
 modules that support database access will be able to use PostgreSQL.
 
 %files pgsql
-%{_libdir}/yate/server/pgsqldb.yate
-%config(noreplace) %{_sysconfdir}/yate/pgsqldb.conf
+%{__libdir}/yate/server/pgsqldb.yate
+%config(noreplace) %{__sysconfdir}/yate/pgsqldb.conf
 
 
 %package mysql
@@ -440,8 +451,8 @@ This package allows Yate to connect to a MySQL database server. All modules
 that support database access will be able to use MySQL.
 
 %files mysql
-%{_libdir}/yate/server/mysqldb.yate
-%config(noreplace) %{_sysconfdir}/yate/mysqldb.conf
+%{__libdir}/yate/server/mysqldb.yate
+%config(noreplace) %{__sysconfdir}/yate/mysqldb.conf
 
 
 %package sqlite
@@ -455,8 +466,8 @@ This package allows Yate to use SQLite database files. All modules
 that support database access will be able to use SQLite.
 
 %files sqlite
-%{_libdir}/yate/server/sqlitedb.yate
-%config(noreplace) %{_sysconfdir}/yate/sqlitedb.conf
+%{__libdir}/yate/server/sqlitedb.yate
+%config(noreplace) %{__sysconfdir}/yate/sqlitedb.conf
 
 
 %if "%{no_gui}" != "1"
@@ -471,14 +482,14 @@ This package includes the common files needed to use Yate as a VoIP client.
 
 %files client-common
 %defattr(-, root, root)
-%{_datadir}/pixmaps/null_team-*.png
-%dir %{_datadir}/yate/skins
-%{_datadir}/yate/skins/*
-%dir %{_datadir}/yate/sounds
-%{_datadir}/yate/sounds/*
-%dir %{_datadir}/yate/help
-%{_datadir}/yate/help/*
-%config(noreplace) %{_sysconfdir}/yate/providers.conf
+%{__datadir}/pixmaps/null_team-*.png
+%dir %{__datadir}/yate/skins
+%{__datadir}/yate/skins/*
+%dir %{__datadir}/yate/sounds
+%{__datadir}/yate/sounds/*
+%dir %{__datadir}/yate/help
+%{__datadir}/yate/help/*
+%config(noreplace) %{__sysconfdir}/yate/providers.conf
 
 
 %package qt4
@@ -494,12 +505,12 @@ with a Qt version 4 graphical interface.
 
 %files qt4
 %defattr(-, root, root)
-%{_bindir}/yate-qt4
-%{_libdir}/libyateqt4.so.*
-%{_libdir}/yate/qt4/*.yate
+%{__bindir}/yate-qt4
+%{__libdir}/libyateqt4.so.*
+%{__libdir}/yate/qt4/*.yate
 %{_menudir}/yate-qt4.menu
-%{_datadir}/applications/yate-qt4.desktop
-%config(noreplace) %{_sysconfdir}/yate/yate-qt4.conf
+%{__datadir}/applications/yate-qt4.desktop
+%config(noreplace) %{__sysconfdir}/yate/yate-qt4.conf
 
 %post qt4
 test -x /usr/bin/update-menus && /usr/bin/update-menus || /bin/true
@@ -522,9 +533,9 @@ Provides:	%{name}-radio
 This package provides support for bladeRF radio boards http://nuand.com/
 
 %files bladerf
-%{_libdir}/yate/radio/ybladerf.yate
-%{_datadir}/yate/data/hosted*.rbf
-%config(noreplace) %{_sysconfdir}/yate/ybladerf.conf
+%{__libdir}/yate/radio/ybladerf.yate
+%{__datadir}/yate/data/hosted*.rbf
+%config(noreplace) %{__sysconfdir}/yate/ybladerf.conf
 
 %define conf_usb %{nil}
 %else
@@ -541,8 +552,8 @@ Requires:	%{name}
 The yate-scripts package includes libraries for using external scripts with Yate.
 
 %files scripts
-%dir %{_datadir}/yate/scripts
-%{_datadir}/yate/scripts/*.*
+%dir %{__datadir}/yate/scripts
+%{__datadir}/yate/scripts/*.*
 
 
 %package devel
@@ -556,13 +567,13 @@ can be used to build and install new modules.
 
 %files devel
 %defattr(-, root, root)
-%doc %{_datadir}/doc/yate-%{version}/*.html
-%doc %{_datadir}/doc/yate-%{version}/api/*
-/usr/include/*
-%{_libdir}/lib*.so
-%{_bindir}/yate-config
-%{_mandir}/*/yate-config.*
-%{_libdir}/pkgconfig/yate.pc
+%doc %{__datadir}/doc/yate-%{version}/*.html
+%doc %{__datadir}/doc/yate-%{version}/api/*
+%{__includedir}/*
+%{__libdir}/lib*.so
+%{__bindir}/yate-config
+%{__mandir}/*/yate-config.*
+%{__libdir}/pkgconfig/yate.pc
 
 
 %package all
@@ -655,18 +666,19 @@ chmod +x %{local_find_requires} %{local_find_provides}
 %endif
 
 %build
-./configure --prefix=%{prefix} --sysconfdir=%{_sysconfdir} \
-	--datadir=%{_datadir} --includedir=%{_includedir} \
-	--libdir=%{_libdir} --mandir=%{_mandir} --with-archlib=%{_lib} \
-	--without-amrnb \
-	--without-spandsp --without-coredumper \
-	%{conf_sctp} %{conf_h323} %{conf_pstn} %{conf_usb}
-make %{stripped}
+./configure --prefix=%{prefix} --sysconfdir=%{__sysconfdir} \
+    --datadir=%{__datadir} --includedir=%{__includedir} --docdir=%{__defaultdocdir} \
+    --libdir=%{__libdir} --mandir=%{__mandir}  --localstatedir=%{__localstatedir} \
+    --with-archlib=%{_lib} \
+    --without-amrnb \
+    --without-spandsp --without-coredumper \
+    %{conf_sctp} %{conf_h323} %{conf_pstn} %{conf_usb}
+make -j2 %{stripped}
 
 %install
 make install DESTDIR=%{buildroot}
-rm %{buildroot}%{_sysconfdir}/yate/amrnbcodec.conf
-rm %{buildroot}%{_sysconfdir}/yate/radiotest.conf
+rm %{buildroot}%{__sysconfdir}/yate/amrnbcodec.conf
+rm %{buildroot}%{__sysconfdir}/yate/radiotest.conf
 %if "%{systemd}" != "0"
 mkdir -p %{buildroot}%{_unitdir}
 cp -p %{_builddir}/%{name}/packing/rpm/yate.service %{buildroot}%{_unitdir}/yate.service
@@ -677,6 +689,8 @@ cp -p %{_builddir}/%{name}/packing/rpm/yate.init %{buildroot}%{_initrddir}/yate
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 cp -p %{_builddir}/%{name}/packing/yate.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/yate
 
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+echo %{__libdir} >> %{buildroot}%{_sysconfdir}/ld.so.conf.d/yate.ld.conf
 %clean
 # make clean
 rm -rf %{buildroot}

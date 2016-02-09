@@ -1773,6 +1773,7 @@ AC_SUBST(KDOC_BIN)
 m4_sinclude(./YateLocal.ac)
 
 AC_CONFIG_FILES([packing/rpm/yate.spec
+                 packing/rpm/yate.init
                  packing/portage/yate.ebuild
                  yate.pc
 		 yateversn.h
